@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h2>{% block title %} {{ post['title'] }} {% endblock %}</h2>
+    <p>{{ post['userid']}} posted: </p>
+    <span class="badge badge-primary">{{ post['created'] }}</span>
+    <p>{{ post['content'] }}</p>
+
+    <img src={{ post['photo']}} class="img-thumbnail">
+
+    <a href="{{url_for('edit', id=post['id'])}}" class="btn btn-primary">Edit This Post</a>
+    <a href="{{url_for('addComment', id=post['id'])}}" class="btn btn-primary">Add Comment</a>
+    <form method="post">
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">
+                <a href="{{ url_for('upvote', id=post['id']) }}">
+                Upvote this image!
+                </a></button>
+        </div>
+    </form>
+    <p>Current score: {{ post['score']}} </p>
+    <p>User Comments</p>
+    {% for comments in comments %}
+        <p>{{ comments['userid']}} said:</p>
+        <p>{{ comments['message'] }}</p>
+        <span class="badge badge-primary">{{ comments['created'] }}</span>
+        <hr>
+    {% endfor %}
+{% endblock %}

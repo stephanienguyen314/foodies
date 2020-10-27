@@ -1,0 +1,31 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <h1>{% block title %} Welcome to FOODgram {% endblock %}</h1>
+    {% if posts %}
+        <section class="flex">
+            <div>
+                <img class="mainPhoto" src="{{posts[0]['photo']}}" alt="">
+            </div>
+        </section>
+    {% endif %}
+    <div>
+        <h1>
+            What is everyone eating? {{user}}
+        </h1>
+    </div>
+    <div class="myContainer">
+    {% for post in posts %}
+        <div class="pictures">
+        <a href="{{ url_for('post', id=post['id']) }}">
+            <h2>{{ post['title'] }}</h2>
+        </a>
+        <span class="badge badge-primary">{{ post['created'] }}</span>
+        <a href="{{ url_for('post', id=post['id']) }}"><img class="myPhoto"src={{ post['photo']}}>
+        </a>
+    
+    </div>
+    {% endfor %}
+    </div>
+    <script src="{{ url_for('static', filename='scripts.js') }}"></script>
+{% endblock %}
